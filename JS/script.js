@@ -367,14 +367,14 @@ const linkedinBtn = document.getElementById("linkedin-btn");
 
 function initEmailJS() {
   // 1️⃣ Initialize EmailJS with your Public Key
-  emailjs.init("Umo7y0LwLF574EOt6"); // replace with your real public key
+  emailjs.init("Umo7y0LwLF574EOt6s"); // replace with your real public key
 
   // 2️⃣ Handle form submission
   document.getElementById("contact-form").addEventListener("submit", function(e) {
     e.preventDefault(); // prevent default form submit
 
     // 3️⃣ Send the form using EmailJS
-    emailjs.sendForm("service_surajkumarcareer", "template_nctogi9", this)
+    emailjs.sendForm("service_surajkumarscareer", "template_nctogi9", this)
       .then(() => {
         showPopup(`
         <h2>Messege sent Successfully! </br><span>Thank you 😊.</span></h2>
