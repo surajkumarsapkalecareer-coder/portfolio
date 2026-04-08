@@ -1,109 +1,109 @@
 $(document).ready(function () {
 
-    $('#menu').click(function () {
-        $(this).toggleClass('fa-times');
-        $('.navbar').toggleClass('nav-toggle');
+  $('#menu').click(function () {
+    $(this).toggleClass('fa-times');
+    $('.navbar').toggleClass('nav-toggle');
+  });
+
+  $(window).on('scroll load', function () {
+    $('#menu').removeClass('fa-times');
+    $('.navbar').removeClass('nav-toggle');
+
+    if (window.scrollY > 60) {
+      document.querySelector('#scroll-top').classList.add('active');
+    } else {
+      document.querySelector('#scroll-top').classList.remove('active');
+    }
+
+    // scroll spy
+    $('section').each(function () {
+      let height = $(this).height();
+      let offset = $(this).offset().top - 200;
+      let top = $(window).scrollTop();
+      let id = $(this).attr('id');
+
+      if (top > offset && top < offset + height) {
+        $('.navbar ul li a').removeClass('active');
+        $('.navbar').find(`[href="#${id}"]`).addClass('active');
+      }
     });
-
-    $(window).on('scroll load', function () {
-        $('#menu').removeClass('fa-times');
-        $('.navbar').removeClass('nav-toggle');
-
-        if (window.scrollY > 60) {
-            document.querySelector('#scroll-top').classList.add('active');
-        } else {
-            document.querySelector('#scroll-top').classList.remove('active');
-        }
-
-        // scroll spy
-        $('section').each(function () {
-            let height = $(this).height();
-            let offset = $(this).offset().top - 200;
-            let top = $(window).scrollTop();
-            let id = $(this).attr('id');
-
-            if (top > offset && top < offset + height) {
-                $('.navbar ul li a').removeClass('active');
-                $('.navbar').find(`[href="#${id}"]`).addClass('active');
-            }
-        });
-    });
-    // 1. Smooth scroll with header offset
-    $(document).ready(function() {
+  });
+  // 1. Smooth scroll with header offset
+  $(document).ready(function () {
     // 1️⃣ Smooth scroll with header offset
     $('a[href*="#"]').on('click', function (e) {
-        e.preventDefault();
+      e.preventDefault();
 
-        const headerHeight = $('header').outerHeight(); // get header height dynamically
-        const target = $($(this).attr('href'));
+      const headerHeight = $('header').outerHeight(); // get header height dynamically
+      const target = $($(this).attr('href'));
 
-        if(target.length) {
-            $('html, body').animate({
-                scrollTop: target.offset().top - headerHeight
-            }, 500, 'linear');
-        }
+      if (target.length) {
+        $('html, body').animate({
+          scrollTop: target.offset().top - headerHeight
+        }, 500, 'linear');
+      }
 
-        // 2️⃣ Close mobile menu if open
-        if($('#menu').hasClass('fa-times')) {
-            $('#menu').removeClass('fa-times');
-            $('.navbar').removeClass('active');
-        }
+      // 2️⃣ Close mobile menu if open
+      if ($('#menu').hasClass('fa-times')) {
+        $('#menu').removeClass('fa-times');
+        $('.navbar').removeClass('active');
+      }
     });
 
     // 3️⃣ Mobile menu toggle
-    $('#menu').on('click', function() {
-        $(this).toggleClass('fa-times');
-        $('.navbar').toggleClass('active');
+    $('#menu').on('click', function () {
+      $(this).toggleClass('fa-times');
+      $('.navbar').toggleClass('active');
     });
 
     // 4️⃣ Highlight active link on scroll
-    $(window).on('scroll', function() {
-        const scrollPos = $(document).scrollTop() + $('header').outerHeight() + 5;
+    $(window).on('scroll', function () {
+      const scrollPos = $(document).scrollTop() + $('header').outerHeight() + 5;
 
-        $('section').each(function() {
-            const top = $(this).offset().top;
-            const bottom = top + $(this).outerHeight();
+      $('section').each(function () {
+        const top = $(this).offset().top;
+        const bottom = top + $(this).outerHeight();
 
-            const id = $(this).attr('id');
-            const link = $('nav ul li a[href="#' + id + '"]');
+        const id = $(this).attr('id');
+        const link = $('nav ul li a[href="#' + id + '"]');
 
-            if(scrollPos >= top && scrollPos < bottom) {
-                $('nav ul li a').removeClass('active');
-                link.addClass('active');
-            }
-        });
+        if (scrollPos >= top && scrollPos < bottom) {
+          $('nav ul li a').removeClass('active');
+          link.addClass('active');
+        }
+      });
     });
-});
+  });
 
 });
 
 document.addEventListener('visibilitychange',
-    function () {
-        if (document.visibilityState === "visible") {
-            document.title = "Portfolio | Surajkumar Sapkale";
-            $("#favicon").attr("href", "./PNG/favicon.png");
-        }
-        else {
-            document.title = "Come Back To Portfolio";
-            $("#favicon").attr("href", "./PNG/favhand.png");
-        }
-    });
+  function () {
+    if (document.visibilityState === "visible") {
+      document.title = "Portfolio | Surajkumar Sapkale";
+      $("#favicon").attr("href", "./PNG/favicon.png");
+    }
+    else {
+      document.title = "Come Back To Portfolio";
+      $("#favicon").attr("href", "./PNG/favhand.png");
+    }
+  });
 
 
 // <!-- typed js effect starts -->
 var typed = new Typed(".typing-text", {
-    strings: ["Backend development"],
-    loop: true,
-    typeSpeed: 50,
-    backSpeed: 25,
-    backDelay: 500,
+  strings: ["Backend development"],
+  loop: true,
+  typeSpeed: 50,
+  backSpeed: 25,
+  backDelay: 500,
 });
 // <!-- typed js effect ends -->
 
 async function fetchData(type = "skills") {
-    // console.log("Hiiii")
-    let response
-switch (type) {
+  // console.log("Hiiii")
+  let response
+  switch (type) {
     case "skills":
       response = await fetch("./JSON/skills.json");
       break;
@@ -122,32 +122,32 @@ switch (type) {
   }
 
   const data = await response.json();
-    return data;
+  return data;
 }
 
 
 
 function showSkills(skills) {
-    let skillsContainer = document.getElementById("skillsContainer");
-    let skillHTML = "";
-    skills.forEach(skill => {
-        skillHTML += `
+  let skillsContainer = document.getElementById("skillsContainer");
+  let skillHTML = "";
+  skills.forEach(skill => {
+    skillHTML += `
         <div class="bar">
               <div class="info">
                 <img src=${skill.icon} alt="skill" />
                 <span>${skill.name}</span>
               </div>
             </div>`
-    });
-    skillsContainer.innerHTML = skillHTML;
+  });
+  skillsContainer.innerHTML = skillHTML;
 }
 
 function showLearnings(learnings) {
-    let learningsContainer = document.getElementById("learningContainer");
-    // console.log(learningsContainer);
-    let skillHTML = "";
-    learnings.forEach(skill => {
-        skillHTML += `
+  let learningsContainer = document.getElementById("learningContainer");
+  // console.log(learningsContainer);
+  let skillHTML = "";
+  learnings.forEach(skill => {
+    skillHTML += `
         <div class="learning-bar" data-percent=${skill.icon}>
                 <div class="info">
                     <span>${skill.name}</span>
@@ -156,24 +156,24 @@ function showLearnings(learnings) {
                 <div class="progress-line"><span></span></div>
             </div>
         `
-    });
-    learningsContainer.innerHTML = skillHTML;
-    
-// Initialize the animation for learning bars
-initLearningAnimation();
+  });
+  learningsContainer.innerHTML = skillHTML;
+
+  // Initialize the animation for learning bars
+  initLearningAnimation();
 }
 
 
 function showProjects(projects) {
-    console.log(projects);
-    if (!projects || projects.length === 0) {
-        console.warn("No projects data available to display.");
-        return;
-    }
-    let projectsContainer = document.querySelector("#work .box-container");
-    let projectHTML = "";
-    projects.slice(0, 10).filter(project => project.category != "android").forEach(project => {
-        projectHTML += `
+  console.log(projects);
+  if (!projects || projects.length === 0) {
+    console.warn("No projects data available to display.");
+    return;
+  }
+  let projectsContainer = document.querySelector("#work .box-container");
+  let projectHTML = "";
+  projects.slice(0, 10).filter(project => project.category != "android").forEach(project => {
+    projectHTML += `
         <div class="box tilt">
       <img draggable="false" src="/assets/images/projects/${project.image}.png" alt="project" />
       <div class="content">
@@ -189,34 +189,34 @@ function showProjects(projects) {
         </div>
       </div>
     </div>`
-    });
-    projectsContainer.innerHTML = projectHTML;
+  });
+  projectsContainer.innerHTML = projectHTML;
 
-    // <!-- tilt js effect starts -->
-    VanillaTilt.init(document.querySelectorAll(".tilt"), {
-        max: 15,
-    });
-    // <!-- tilt js effect ends -->
+  // <!-- tilt js effect starts -->
+  VanillaTilt.init(document.querySelectorAll(".tilt"), {
+    max: 15,
+  });
+  // <!-- tilt js effect ends -->
 
-    /* ===== SCROLL REVEAL ANIMATION ===== */
-    const srtop = ScrollReveal({
-        origin: 'top',
-        distance: '80px',
-        duration: 1000,
-        reset: true
-    });
+  /* ===== SCROLL REVEAL ANIMATION ===== */
+  const srtop = ScrollReveal({
+    origin: 'top',
+    distance: '80px',
+    duration: 1000,
+    reset: true
+  });
 
-    /* SCROLL PROJECTS */
-    srtop.reveal('.work .box', { interval: 200 });
+  /* SCROLL PROJECTS */
+  srtop.reveal('.work .box', { interval: 200 });
 
 }
 
 fetchData().then(data => {
-    showSkills(data);
+  showSkills(data);
 });
 
 fetchData("learning").then(data => {
-    showLearnings(data);
+  showLearnings(data);
 });
 
 // fetchData("projects").then(data => {
@@ -225,27 +225,27 @@ fetchData("learning").then(data => {
 
 // <!-- tilt js effect starts -->
 VanillaTilt.init(document.querySelectorAll(".tilt"), {
-    max: 15,
+  max: 15,
 });
 // <!-- tilt js effect ends -->
 
 // disable developer mode
 document.onkeydown = function (e) {
-    if (e.keyCode == 123) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-        return false;
-    }
+  if (e.keyCode == 123) {
+    return false;
+  }
+  if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+    return false;
+  }
+  if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+    return false;
+  }
+  if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+    return false;
+  }
+  if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+    return false;
+  }
 }
 
 // Start of Tawk.to Live Chat
@@ -260,61 +260,61 @@ document.onkeydown = function (e) {
 // })();
 // End of Tawk.to Live Chat
 function initLearningAnimation() {
-const learningBars = document.querySelectorAll(".learning-bar");
+  const learningBars = document.querySelectorAll(".learning-bar");
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    const bar = entry.target;
-                    const span = bar.querySelector(".progress-line span");
-                    const percentText = bar.querySelector(".percent-text");
-                    const targetPercent = bar.getAttribute("data-percent");
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const bar = entry.target;
+        const span = bar.querySelector(".progress-line span");
+        const percentText = bar.querySelector(".percent-text");
+        const targetPercent = bar.getAttribute("data-percent");
 
-                    if (entry.isIntersecting) {
-                        // Fade + slide-in
-                        bar.classList.add("visible");
+        if (entry.isIntersecting) {
+          // Fade + slide-in
+          bar.classList.add("visible");
 
-                        // Reset before animating again
-                        span.style.transition = "none";
-                        span.style.width = "0";
-                        percentText.textContent = "0%";
+          // Reset before animating again
+          span.style.transition = "none";
+          span.style.width = "0";
+          percentText.textContent = "0%";
 
-                        // Small delay to let reset finish
-                        setTimeout(() => {
-                            span.style.transition = "width 2s ease-in-out";
-                            span.style.width = targetPercent + "%";
+          // Small delay to let reset finish
+          setTimeout(() => {
+            span.style.transition = "width 2s ease-in-out";
+            span.style.width = targetPercent + "%";
 
-                            let count = 0;
-                            const interval = setInterval(() => {
-                                if (count < targetPercent) {
-                                    count++;
-                                    percentText.textContent = count + "%";
-                                } else {
-                                    clearInterval(interval);
-                                }
-                            }, 20);
-                        }, 100);
-                    } else {
-                        // Reset when leaving viewport (optional)
-                        bar.classList.remove("visible");
-                        span.style.width = "0";
-                        percentText.textContent = "0%";
-                    }
-                });
-            },
-            { threshold: 0.4 }
-        );
+            let count = 0;
+            const interval = setInterval(() => {
+              if (count < targetPercent) {
+                count++;
+                percentText.textContent = count + "%";
+              } else {
+                clearInterval(interval);
+              }
+            }, 20);
+          }, 100);
+        } else {
+          // Reset when leaving viewport (optional)
+          bar.classList.remove("visible");
+          span.style.width = "0";
+          percentText.textContent = "0%";
+        }
+      });
+    },
+    { threshold: 0.4 }
+  );
 
-        learningBars.forEach((bar) => observer.observe(bar));
+  learningBars.forEach((bar) => observer.observe(bar));
 }
 
 
 /* ===== SCROLL REVEAL ANIMATION ===== */
 const srtop = ScrollReveal({
-    origin: 'top',
-    distance: '80px',
-    duration: 1000,
-    reset: true
+  origin: 'top',
+  distance: '80px',
+  duration: 1000,
+  reset: true
 });
 
 /* SCROLL HOME */
@@ -370,7 +370,7 @@ function initEmailJS() {
   emailjs.init("Umo7y0LwLF574EOt6s"); // replace with your real public key
 
   // 2️⃣ Handle form submission
-  document.getElementById("contact-form").addEventListener("submit", function(e) {
+  document.getElementById("contact-form").addEventListener("submit", function (e) {
     e.preventDefault(); // prevent default form submit
 
     // 3️⃣ Send the form using EmailJS
@@ -422,7 +422,7 @@ function showPopup(contentHTML, showLinkedIn = false) {
     popup.classList.remove("show");
   };
 
-    const linkedinBtn = document.getElementById("linkedin-btn");
+  const linkedinBtn = document.getElementById("linkedin-btn");
   if (linkedinBtn) {
     linkedinBtn.onclick = (e) => {
       popup.classList.remove("show");
@@ -431,7 +431,7 @@ function showPopup(contentHTML, showLinkedIn = false) {
       }, 200);
       e.preventDefault();
     };
-}
+  }
 }
 
 let slogans = [];
@@ -473,10 +473,16 @@ function eraseText() {
   }
 }
 
-const joiningDate = new Date("2023-04-01");
-const currentDate = new Date();
+document.addEventListener("DOMContentLoaded", function () {
+  const joiningDate = new Date("2022-06-06");
+  const currentDate = new Date();
 
-const diffTime = currentDate - joiningDate;
-const diffYears = diffTime / (1000 * 60 * 60 * 24 * 365);
+  const diffTime = currentDate - joiningDate;
+  const diffYears = diffTime / (1000 * 60 * 60 * 24 * 365.25);
 
-document.getElementById("experienceCount").textContent = diffYears.toFixed(1);
+  const expElement = document.getElementById("experienceCount");
+
+  if (expElement) {
+    expElement.textContent = diffYears.toFixed(1);
+  }
+});
