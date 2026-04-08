@@ -473,3 +473,10 @@ function eraseText() {
   }
 }
 
+const joiningDate = new Date("2023-04-01");
+const currentDate = new Date();
+
+const diffTime = currentDate - joiningDate;
+const diffYears = diffTime / (1000 * 60 * 60 * 24 * 365);
+
+document.getElementById("experienceCount").textContent = diffYears.toFixed(1);
